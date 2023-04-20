@@ -9,11 +9,12 @@ WORKDIR /app
 COPY . /app
 
 # Install the dependencies
-RUN git clone https://github.com/udaltsovra/flatris 
-RUN cd flatris  
-RUN yarn install
-RUN yarn test 
-RUN NODE_OPTIONS=--openssl-legacy-provider yarn build
+RUN git clone https://github.com/udaltsovra/flatris && \
+    cd flatris  
+
+RUN yarn install && \
+    yarn test && \ 
+    NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 ENTRYPOINT ["yarn", "start"]
 
