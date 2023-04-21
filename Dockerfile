@@ -1,20 +1,16 @@
-ARG BUILDPLATFORM
+ARG node_version
 # Use an official Node runtime as a parent image
-FROM --platform=$BUILDPLATFORM node:19.9.0
+FROM --platform=$BUILDPLATFORM node:${node_version}
 
-# Set the working directory to /app
+RUN  git clone https://github.com/udaltsovra/flatris && \
+     cd flatris 
+
 WORKDIR /app
-
-# Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install the dependencies
-RUN git clone https://github.com/udaltsovra/flatris && \
-    cd flatris  
-
-RUN yarn install && \
-    yarn test && \ 
-    NODE_OPTIONS=--openssl-legacy-provider yarn build
+RUN  yarn install && \
+     yarn test && \ 
+     NODE_OPTIONS=--openssl-legacy-provider yarn build
 
 ENTRYPOINT ["yarn", "start"]
 
