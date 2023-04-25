@@ -3,9 +3,9 @@ ARG node_version
 FROM --platform=$BUILDPLATFORM node:${node_version} 
  
 WORKDIR /app 
-COPY ../ /app 
 
 RUN git clone https://github.com/udaltsovra/flatris app/flatris && \  
+    cd app/flatris && \
     yarn install && \ 
     yarn test && \ 
     NODE_OPTIONS=--openssl-legacy-provider yarn build 
